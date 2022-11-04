@@ -6,21 +6,26 @@ imgPath="..\\..\\Resources\\Photos"
 img = cv.imread(imgPath+'\\color.png')
 
 
-
+# Normalde renkler 3 parametreden oluşur (r,g,b)
 hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
+# ama hsv renk uzayında (h,s,l) parametrelerinden oluşmaktadır.
+# h(hue)-> rengin renk çemberindeki açı değeri
+# s(saturation)-> rengin canlılık değeri 
+# l(ligtning)-> rengin parlaklığı
 
-# define range wanted color in HSV
+
+# rengin alt ve üst değerlerinin belirlenmesi
 lower_val = np.array([15, 50, 70])
 upper_val = np.array([30, 250, 250])
 
-# Threshold the HSV image - any green color will show up as white
+# rengin alt ve üst değerleri arasında arama yapılıp maske oluşturulması
 mask = cv.inRange(hsv, lower_val, upper_val)
 
+# kontürlerin bulunması
 contours, hierarchies = cv.findContours(mask, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE)
 
+
 counter=1
-
-
 
 # kutu içine alma
 for i in contours:
